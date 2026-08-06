@@ -62,9 +62,15 @@ export function ScreenFrame({ children }: { children: ReactNode }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center overflow-hidden bg-crema">
+      {/*
+        `shrink-0` es imprescindible: sin el, al ser hijo de un flex mas
+        estrecho que 1080 px el lienzo se ENCOGERIA en lugar de escalarse, y
+        la composicion se descuadraria entera. Pasa en cualquier ventana
+        angosta: un celular, una tablet o el navegador sin maximizar.
+      */}
       <div
         ref={contenedorRef}
-        className="relative overflow-hidden transition-opacity duration-300"
+        className="relative shrink-0 overflow-hidden transition-opacity duration-300"
         style={{
           width: CANVAS.width,
           height: CANVAS.height,

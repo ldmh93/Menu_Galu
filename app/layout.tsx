@@ -27,7 +27,9 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  // Sin tope de zoom: en el celular la pantalla se ve completa pero pequena,
+  // asi que hay que poder acercarse con los dedos para leer un precio.
+  // No afecta al televisor, que nunca hace zoom.
   themeColor: "#fff5f5",
 };
 
