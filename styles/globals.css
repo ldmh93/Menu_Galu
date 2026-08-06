@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+/* Tailwind v4 detecta el codigo fuente automaticamente, pero lo declaramos
+   explicitamente porque el CSS vive fuera de /app. */
+@source "../app";
+@source "../components";
+@source "../lib";
+@source "../config";
+
+/* ------------------------------------------------------------------ */
+/* Design tokens — extraidos del fondo oficial de GALU (background.svg) */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Paleta de marca */
+  --color-crema: #fff5f5;
+  --color-crema-profunda: #fdeceb;
+  --color-rosa: #f7bfd9;
+  --color-rosa-suave: #fad5d2;
+  --color-lavanda: #d1cee9;
+  --color-menta: #9dd2c5;
+  --color-amarillo: #ffe874;
+  --color-morado: #9371b0;
+
+  /* Tinta: nunca negro puro, siempre ciruela profundo → se siente premium */
+  --color-tinta: #3b2a4d;
+  --color-tinta-suave: #6b5a7d;
+
+  /* Tipografia (inyectada por next/font en el layout) */
+  --font-display: var(--font-fredoka), "Trebuchet MS", sans-serif;
+  --font-body: var(--font-poppins), system-ui, sans-serif;
+
+  /* Sombras suaves — difusas y de bajo contraste, nunca duras */
+  --shadow-tarjeta: 0 24px 60px -20px rgb(59 42 77 / 0.18), 0 8px 24px -12px rgb(59 42 77 / 0.1);
+  --shadow-flotante: 0 40px 80px -24px rgb(59 42 77 / 0.28);
+  --shadow-pildora: 0 10px 24px -10px rgb(59 42 77 / 0.35);
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-crema);
+  color: var(--color-tinta);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  /* La pantalla es un kiosco: sin scroll ni seleccion accidental. */
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Oculta el cursor tras unos segundos de inactividad en modo kiosco. */
+body[data-kiosk="idle"] {
+  cursor: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Utilidades                                                          */
+/* ------------------------------------------------------------------ */
+
+/* Glassmorphism muy ligero: apenas una veladura sobre el fondo pastel. */
+@utility vidrio {
+  background: linear-gradient(
+    160deg,
+    rgb(255 255 255 / 0.9) 0%,
+    rgb(255 255 255 / 0.78) 55%,
+    rgb(255 255 255 / 0.86) 100%
+  );
+  backdrop-filter: blur(26px) saturate(120%);
+  -webkit-backdrop-filter: blur(26px) saturate(120%);
+  border: 1px solid rgb(255 255 255 / 0.85);
+}
+
+/* Realce sutil del borde superior de las tarjetas. */
+@utility brillo-superior {
+  box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
