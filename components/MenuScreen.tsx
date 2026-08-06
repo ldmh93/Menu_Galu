@@ -16,8 +16,6 @@ import {
   sharedFontSize,
 } from "@/lib/layout";
 import { contenedor } from "@/lib/motion";
-import { AnimatedBackground } from "./AnimatedBackground";
-import { Background } from "./Background";
 import { CategoryCard } from "./CategoryCard";
 import { FitContent } from "./FitContent";
 import { FloatingImage } from "./FloatingImage";
@@ -63,10 +61,8 @@ export function MenuScreen({ menu, subtitle, playlist }: MenuScreenProps) {
   const tieneContenido = menu.categories.length > 0;
 
   return (
+    // El fondo lo pinta ScreenFrame una sola vez para todas las pantallas.
     <div className="relative h-full w-full overflow-hidden">
-      <Background />
-      <AnimatedBackground />
-
       {/* Fotografia: vive fuera del contenedor con padding para poder
           sobresalir del borde izquierdo e inferior de la pantalla. */}
       <div

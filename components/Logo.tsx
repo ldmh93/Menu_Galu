@@ -30,7 +30,11 @@ export function Logo({ width = 330, priority = true }: LogoProps) {
     >
       <div
         aria-hidden="true"
-        className="absolute inset-0 -m-10 rounded-full bg-white/45 blur-3xl"
+        className="absolute inset-0 -m-14 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 50%, rgb(255 255 255 / 0.55) 0%, rgb(255 255 255 / 0.35) 40%, transparent 70%)",
+        }}
       />
       <Image
         src={site.logo}

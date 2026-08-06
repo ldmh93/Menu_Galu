@@ -9,6 +9,12 @@ import { motion, useReducedMotion } from "framer-motion";
  *  1. Halos pastel que se desplazan muy lento (sensacion de profundidad).
  *  2. Un velo crema y una vineta suave que aumentan el contraste de las
  *     tarjetas — clave para leer desde lejos.
+ *
+ * Los halos NO usan `filter: blur()`. Un degradado radial ya es difuso por
+ * definicion, y el filtro obligaba al navegador a reservar una textura enorme
+ * por cada halo (el desenfoque agranda los limites de la capa). En el
+ * televisor daba igual, pero en un celular esas texturas agotan la memoria de
+ * video y Chrome mata la pestana.
  */
 
 interface Halo {
@@ -35,13 +41,14 @@ export function AnimatedBackground() {
       {halos.map((halo, index) => (
         <motion.div
           key={index}
-          className="absolute rounded-full blur-[120px]"
+          className="absolute rounded-full"
           style={{
             width: halo.size,
             height: halo.size,
             left: halo.x,
             top: halo.y,
-            background: `radial-gradient(circle at 50% 50%, ${halo.color} 0%, transparent 70%)`,
+            // Varias paradas para que el borde muera suave sin necesitar blur.
+            background: `radial-gradient(circle at 50% 50%, ${halo.color} 0%, ${halo.color} 18%, transparent 68%)`,
           }}
           animate={
             reducirMovimiento

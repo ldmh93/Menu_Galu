@@ -55,7 +55,11 @@ export function FloatingImage({ photo, size = 480 }: FloatingImageProps) {
         {/* Sombra proyectada en el suelo, no en la imagen */}
         <div
           aria-hidden="true"
-          className="absolute inset-x-[16%] bottom-[6%] h-[12%] rounded-[50%] bg-[#3b2a4d]/22 blur-2xl"
+          className="absolute inset-x-[10%] bottom-[3%] h-[16%] rounded-[50%]"
+          style={{
+            background:
+              "radial-gradient(closest-side, rgb(59 42 77 / 0.26) 0%, rgb(59 42 77 / 0.14) 45%, transparent 78%)",
+          }}
         />
 
         {!falloImagen ? (

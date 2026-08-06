@@ -3,6 +3,8 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 
 import { CANVAS } from "@/config/site";
+import { AnimatedBackground } from "./AnimatedBackground";
+import { Background } from "./Background";
 
 /**
  * Lienzo fijo de 1080x1920 escalado al viewport.
@@ -79,7 +81,18 @@ export function ScreenFrame({ children }: { children: ReactNode }) {
           opacity: scale === null ? 0 : 1,
         }}
       >
-        {children}
+        {/*
+          El fondo vive AQUI, no dentro de cada pantalla de menu.
+          Durante el fundido cruzado del autoplay conviven dos menus a la vez;
+          si cada uno trajera su propio fondo, el celular tendria que componer
+          dos imagenes a pantalla completa mas ocho halos animados al mismo
+          tiempo, y se queda sin memoria de video. Asi se dibuja una sola vez
+          y ademas no reinicia su animacion en cada cambio.
+        */}
+        <Background />
+        <AnimatedBackground />
+
+        <div className="relative z-10 h-full w-full">{children}</div>
       </div>
     </div>
   );

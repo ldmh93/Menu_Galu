@@ -50,11 +50,16 @@ export function CategoryCard({
       variants={entradaTarjeta}
       className={`group relative flex flex-col ${className ?? ""}`}
     >
-      {/* Halo de color detras de la tarjeta */}
+      {/* Halo de color detras de la tarjeta. Degradado radial en vez de
+          `blur()`: mismo aspecto, sin textura extra en la GPU. */}
       <div
         aria-hidden="true"
-        className="absolute -inset-6 rounded-[64px] blur-[60px] opacity-70"
-        style={{ background: accent.glow }}
+        className="absolute -inset-12 opacity-60"
+        style={{
+          // El degradado muere ANTES del borde del elemento (75 %), asi no se
+          // adivina el rectangulo que lo contiene.
+          background: `radial-gradient(72% 72% at 50% 50%, ${accent.glow} 0%, transparent 100%)`,
+        }}
       />
 
       <div
@@ -79,8 +84,10 @@ export function CategoryCard({
         {/* Lavado de color muy tenue en la esquina superior */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -top-24 -right-16 size-64 rounded-full blur-3xl"
-          style={{ background: accent.wash }}
+          className="pointer-events-none absolute -top-32 -right-24 size-80 rounded-full"
+          style={{
+            background: `radial-gradient(circle at 50% 50%, ${accent.wash} 0%, transparent 65%)`,
+          }}
         />
 
         {compact ? (
