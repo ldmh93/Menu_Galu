@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { MotionConfig } from "framer-motion";
 
 import { CANVAS } from "@/config/site";
 import { AnimatedBackground } from "./AnimatedBackground";
@@ -16,7 +17,22 @@ import { Background } from "./Background";
  */
 export function ScreenFrame({ children }: { children: ReactNode }) {
   const [scale, setScale] = useState<number | null>(null);
+  const [sinAnimacion, setSinAnimacion] = useState(false);
   const contenedorRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * `?animaciones=off` apaga TODO el movimiento.
+   *
+   * Es un interruptor de diagnostico: si un aparato falla con animaciones y
+   * aguanta sin ellas, el problema es el coste grafico. Si falla igual, hay que
+   * buscar en otra parte. Tambien sirve para reproductores muy modestos.
+   */
+  useEffect(() => {
+    const valor = new URLSearchParams(window.location.search).get("animaciones");
+    if (valor === "off" || valor === "false" || valor === "0") {
+      setSinAnimacion(true);
+    }
+  }, []);
 
   useLayoutEffect(() => {
     const actualizar = () => {
@@ -63,7 +79,8 @@ export function ScreenFrame({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center overflow-hidden bg-crema">
+    <MotionConfig reducedMotion={sinAnimacion ? "always" : "user"}>
+      <div className="fixed inset-0 flex items-center justify-center overflow-hidden bg-crema">
       {/*
         `shrink-0` es imprescindible: sin el, al ser hijo de un flex mas
         estrecho que 1080 px el lienzo se ENCOGERIA en lugar de escalarse, y
@@ -93,7 +110,8 @@ export function ScreenFrame({ children }: { children: ReactNode }) {
         <AnimatedBackground />
 
         <div className="relative z-10 h-full w-full">{children}</div>
+        </div>
       </div>
-    </div>
+    </MotionConfig>
   );
 }

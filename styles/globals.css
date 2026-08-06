@@ -67,11 +67,12 @@ body[data-kiosk="idle"] {
 /* ------------------------------------------------------------------ */
 
 /* Glassmorphism muy ligero: apenas una veladura sobre el fondo pastel.
-   El `backdrop-filter` es de los efectos mas caros que existen — obliga al
-   navegador a releer todo lo que hay detras y desenfocarlo en cada cuadro.
-   Como el cristal ya es blanco al 80-90 %, un radio pequeno se ve practicamente
-   igual y cuesta una fraccion. Tambien se quito `saturate`, que anadia otra
-   pasada de filtro sin aportar nada perceptible. */
+   SIN `backdrop-filter` a proposito. Es de los efectos mas caros que existen:
+   obliga al navegador a releer todo lo que hay detras de la tarjeta y
+   desenfocarlo cada vez que algo se repinta, y ademas actua de amplificador
+   (cualquier repintado en la pantalla arrastra a las tres tarjetas).
+   Sobre un cristal que ya es blanco al 80-90 % el desenfoque no se percibia:
+   el aspecto lo da el degradado, el borde claro y la sombra difusa. */
 @utility vidrio {
   background: linear-gradient(
     160deg,
@@ -79,8 +80,6 @@ body[data-kiosk="idle"] {
     rgb(255 255 255 / 0.78) 55%,
     rgb(255 255 255 / 0.86) 100%
   );
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgb(255 255 255 / 0.85);
 }
 

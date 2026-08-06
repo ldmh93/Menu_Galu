@@ -15,14 +15,19 @@ export function Background() {
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {/*
+        Solo se desplaza; NO se anima la escala.
+        Al cambiar la escala de forma continua el navegador tiene que volver a
+        rasterizar el SVG del fondo (que es vectorial y muy detallado) para
+        mantener la nitidez, cuadro tras cuadro y para siempre. Un
+        desplazamiento, en cambio, lo resuelve el compositor moviendo una
+        textura ya dibujada. La escala fija de 1.06 se queda: evita que se vean
+        los bordes al desplazarse.
+      */}
       <motion.div
         className="absolute inset-0"
-        initial={{ scale: 1.04 }}
-        animate={
-          reducirMovimiento
-            ? { scale: 1.04 }
-            : { scale: [1.04, 1.075, 1.04], x: [0, -10, 0], y: [0, 8, 0] }
-        }
+        style={{ scale: 1.06, willChange: "transform" }}
+        animate={reducirMovimiento ? undefined : { x: [0, -14, 0], y: [0, 11, 0] }}
         transition={{
           duration: 46,
           repeat: Infinity,

@@ -69,11 +69,22 @@ export function PlaylistProgress({
             aria-current={activo ? "true" : undefined}
           >
             {activo ? (
+              /*
+                Se anima `scaleX`, NO `width`.
+                Animar el ancho obliga al navegador a recalcular el diseño y
+                repintar en CADA cuadro, y como esta barra corre sin parar los
+                12 segundos que dura la pantalla, el repintado no cesaba nunca.
+                Peor aun: al repintar el fondo, las tarjetas con `backdrop-filter`
+                tenian que volver a leer y desenfocar todo lo que hay detras.
+                Medido: 6116 rasterizados en 15 s. `scaleX` lo resuelve el
+                compositor en la GPU, sin diseño ni pintado.
+                El borde redondeado lo pone el contenedor, que ya recorta.
+              */
               <motion.span
                 key={`${segmento.label}-${activeIndex}`}
-                className="absolute inset-y-0 left-0 rounded-full bg-[#9371b0]"
-                initial={{ width: `${desde}%` }}
-                animate={{ width: paused ? `${desde}%` : `${hasta}%` }}
+                className="absolute inset-y-0 left-0 w-full origin-left bg-[#9371b0]"
+                initial={{ scaleX: desde / 100 }}
+                animate={{ scaleX: (paused ? desde : hasta) / 100 }}
                 transition={{ duration: durationSeconds, ease: "linear" }}
               />
             ) : visto ? (
