@@ -45,12 +45,16 @@ export function Footer({ footnote, playlist }: FooterProps) {
     >
       {/*
         La nota lleva condiciones de venta ("todos incluyen 2 toppings", "16 y
-        24 oz"): si no se lee desde la fila, no sirve de nada. A 23 px y en
-        `light` se perdia contra el fondo pastel; a 30 px y peso normal se
-        sostiene sin competir con los productos.
+        24 oz"): si no se lee desde la fila, no sirve de nada.
+
+        Aqui el tamano no era el problema principal: cae justo encima de la
+        mancha lavanda del fondo, y el gris-morado (#6b5a7d) sobre lavanda
+        (#d1cee9) da un contraste de ~3.5:1, que a varios metros se disuelve.
+        En tinta plena (#3b2a4d) sube a ~7.5:1. El peso medio hace el resto:
+        sigue por debajo de los productos en jerarquia, pero ya no se pierde.
       */}
       {footnote ? (
-        <p className="text-[30px] leading-snug font-normal text-tinta-suave">
+        <p className="text-[34px] leading-snug font-medium text-tinta">
           {footnote}
         </p>
       ) : null}
