@@ -106,7 +106,8 @@ Y se puede forzar el número de columnas de una lista cuando conviene
 { id: "tamanos", name: "Tamaños", columns: 1, items: [...] }
 ```
 
-Los extras van al pie de la pantalla como pastillas:
+Los extras aparecen como pastillas justo debajo de las tarjetas, pegados al
+contenido (no al pie), porque son una extensión del menú:
 
 ```ts
 extras: [{ name: "Leche vegetal", price: 10 }, { name: "Tapioca", price: 15 }]

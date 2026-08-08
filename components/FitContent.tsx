@@ -4,6 +4,17 @@ import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 
 interface FitContentProps {
   children: ReactNode;
+  /**
+   * Bloque que acompana al contenido pegado a su parte inferior (los extras).
+   *
+   * Va dentro del grupo centrado pero FUERA del bloque escalado: sube y baja
+   * con las tarjetas, asi que nunca queda un hueco muerto entre ambos, pero
+   * conserva su tamano aunque el menu sea tan denso que las tarjetas tengan
+   * que encogerse. Su altura se descuenta del espacio disponible.
+   */
+  after?: ReactNode;
+  /** Separacion entre el contenido y el bloque `after`. */
+  afterGap?: number;
   /** Reduccion maxima permitida. 0.74 = como mucho un 26% mas pequeno. */
   minScale?: number;
   /**
@@ -28,11 +39,14 @@ interface FitContentProps {
  */
 export function FitContent({
   children,
+  after,
+  afterGap = 28,
   minScale = 0.62,
   maxScale = 1,
 }: FitContentProps) {
   const exteriorRef = useRef<HTMLDivElement>(null);
   const interiorRef = useRef<HTMLDivElement>(null);
+  const acompananteRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
 
   useLayoutEffect(() => {
@@ -41,8 +55,11 @@ export function FitContent({
     if (!exterior || !interior) return;
 
     const medir = () => {
-      const disponible = exterior.clientHeight;
-      if (!disponible) return;
+      // El acompanante no se escala, asi que su altura sale del presupuesto
+      // antes de repartir el resto entre las tarjetas.
+      const disponible =
+        exterior.clientHeight - (acompananteRef.current?.offsetHeight ?? 0);
+      if (disponible <= 0) return;
 
       // Medicion a tamano natural.
       const anchoPrevio = interior.style.width;
@@ -82,7 +99,7 @@ export function FitContent({
     document.fonts?.ready.then(medir).catch(() => undefined);
 
     return () => observer.disconnect();
-  }, [minScale, maxScale, children]);
+  }, [minScale, maxScale, children, after]);
 
   return (
     // Centrado vertical: cuando un menu tiene pocos productos, el bloque queda
@@ -105,6 +122,12 @@ export function FitContent({
       >
         {children}
       </div>
+
+      {after ? (
+        <div ref={acompananteRef} style={{ marginTop: afterGap }}>
+          {after}
+        </div>
+      ) : null}
     </div>
   );
 }

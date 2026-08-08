@@ -17,6 +17,7 @@ import {
 } from "@/lib/layout";
 import { contenedor } from "@/lib/motion";
 import { CategoryCard } from "./CategoryCard";
+import { ExtrasBar } from "./ExtrasBar";
 import { FitContent } from "./FitContent";
 import { FloatingImage } from "./FloatingImage";
 import { Footer } from "./Footer";
@@ -98,7 +99,11 @@ export function MenuScreen({ menu, subtitle, playlist }: MenuScreenProps) {
           className="min-h-0 flex-1"
           style={{ marginTop: RITMO.gapTituloContenido }}
         >
-          <FitContent>
+          {/* Los extras viajan pegados a las tarjetas, no al pie: son una
+              extension del menu y tienen que leerse como parte del mismo
+              bloque. Colgados del borde inferior quedaba un hueco muerto
+              entre ambos en los menus con pocos productos. */}
+          <FitContent after={<ExtrasBar extras={menu.extras} />}>
             {tieneContenido ? (
               <Tarjetas menu={menu} layout={layout} />
             ) : (
@@ -124,11 +129,7 @@ export function MenuScreen({ menu, subtitle, playlist }: MenuScreenProps) {
                 16,
             }}
           >
-            <Footer
-              footnote={menu.footnote}
-              extras={menu.extras}
-              playlist={playlist}
-            />
+            <Footer footnote={menu.footnote} playlist={playlist} />
           </div>
         </div>
       </div>
