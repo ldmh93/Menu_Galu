@@ -24,10 +24,16 @@ export interface SiteConfig {
   playlist: string[];
   /** Pie de pantalla. */
   footer: {
+    /** Usuario, el mismo en todas las redes. */
     handle: string;
+    /** Redes donde existe ese usuario. Decide que iconos se pintan. */
+    networks: SocialNetwork[];
     message: string;
   };
 }
+
+/** Redes con icono disponible en el pie. */
+export type SocialNetwork = "instagram" | "facebook" | "tiktok";
 
 export const site: SiteConfig = {
   brand: "GALU",
@@ -47,7 +53,8 @@ export const site: SiteConfig = {
     "especialidades",
   ],
   footer: {
-    handle: "@galu",
+    handle: "@frozen.galu",
+    networks: ["instagram", "facebook", "tiktok"],
     message: "Hecho al momento, siempre fresco",
   },
 };

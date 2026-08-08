@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Instagram } from "lucide-react";
+import { Facebook, Instagram } from "lucide-react";
 
-import { site } from "@/config/site";
+import { site, type SocialNetwork } from "@/config/site";
+import { TikTok } from "./icons/TikTok";
 import type { MenuExtra } from "@/data/types";
 import { formatPrice } from "@/lib/format";
 import { EASE_SUAVE } from "@/lib/motion";
@@ -21,6 +22,16 @@ interface FooterProps {
     durationSeconds: number;
     paused?: boolean;
   };
+}
+
+/**
+ * Icono de una red social. TikTok es solido y los de Lucide son de trazo;
+ * a 24 px y en el mismo morado se leen como un conjunto.
+ */
+function IconoRed({ red }: { red: SocialNetwork }) {
+  if (red === "facebook") return <Facebook size={24} strokeWidth={2} />;
+  if (red === "tiktok") return <TikTok size={23} />;
+  return <Instagram size={24} strokeWidth={2} />;
 }
 
 /** Pie de pantalla: extras, nota del menu, progreso y marca. */
@@ -83,8 +94,18 @@ export function Footer({ footnote, extras, playlist }: FooterProps) {
           </span>
         )}
 
+        {/*
+          El usuario es el mismo en las tres redes, asi que se escribe una
+          sola vez y los iconos hacen de prefijo. Repetir "@frozen.galu" tres
+          veces no aportaria nada y se comeria el ancho de la barra de
+          progreso, que comparte esta fila.
+        */}
         <span className="inline-flex shrink-0 items-center gap-3 text-[24px] font-medium whitespace-nowrap text-tinta">
-          <Instagram size={24} strokeWidth={2} className="text-[#9371b0]" />
+          <span className="inline-flex items-center gap-2.5 text-morado">
+            {site.footer.networks.map((red) => (
+              <IconoRed key={red} red={red} />
+            ))}
+          </span>
           {site.footer.handle}
         </span>
       </div>
