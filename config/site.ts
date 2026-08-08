@@ -31,7 +31,7 @@ export interface SiteConfig {
 
 export const site: SiteConfig = {
   brand: "GALU",
-  subtitle: "Bobas & Frozen Yogurt",
+  subtitle: "Frozen Yogurt & Bobas",
   logo: "/logo.png",
   background: "/background.svg",
   autoplaySeconds: 12,

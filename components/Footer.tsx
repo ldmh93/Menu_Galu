@@ -32,20 +32,29 @@ export function Footer({ footnote, extras, playlist }: FooterProps) {
       transition={{ duration: 1, ease: EASE_SUAVE, delay: 1.1 }}
       className="flex flex-col gap-4"
     >
-      {/* Extras: pastillas pequenas, informacion secundaria pero visible. */}
+      {/*
+        Extras: son venta adicional, asi que tienen que leerse desde lejos.
+        El nombre va en tinta plena (no en tinta-suave) y el precio en morado
+        de marca, un punto mas grande y semibold: el ojo salta de precio en
+        precio. El borde tenido de morado y la sombra despegan la pastilla del
+        fondo pastel sin recurrir a un color fuerte.
+      */}
       {extras && extras.length > 0 ? (
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span className="mr-1 text-[17px] font-medium tracking-[0.12em] text-tinta-suave/80 uppercase">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="mr-1 text-[22px] font-semibold tracking-[0.18em] text-morado uppercase">
             Extras
           </span>
           {extras.map((extra) => (
             <span
               key={extra.name}
-              className="inline-flex items-baseline gap-1.5 rounded-full bg-white/65 px-3 py-1.5 text-[18px] font-medium whitespace-nowrap text-tinta-suave"
-              style={{ border: "1px solid rgb(255 255 255 / 0.8)" }}
+              className="inline-flex items-baseline gap-2 rounded-full bg-white/90 px-4 py-2 text-[26px] font-medium whitespace-nowrap text-tinta"
+              style={{
+                border: "1px solid rgb(147 113 176 / 0.28)",
+                boxShadow: "0 8px 20px -12px rgb(59 42 77 / 0.35)",
+              }}
             >
               {extra.name}
-              <span className="font-semibold text-tinta">
+              <span className="text-[28px] font-semibold text-morado">
                 {formatPrice(extra.price)}
               </span>
             </span>
