@@ -100,6 +100,11 @@ export interface MenuScreen {
   section?: string;
   /** Frase corta bajo el titulo. */
   tagline?: string;
+  /**
+   * Anula la forma de preparacion de config/site.ts en ESTA pantalla.
+   * `null` la oculta (util si un menu no se sirve late ni frapeado).
+   */
+  preparation?: string | null;
   layout?: MenuLayout;
   photo: MenuPhoto;
   categories: MenuCategory[];

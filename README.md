@@ -121,6 +121,11 @@ Los acentos disponibles (`accent`) son los colores del fondo oficial:
 `config/site.ts` — subtítulo del header, segundos por pantalla, orden de
 reproducción, redes sociales. No hay que tocar código para cambiarlos.
 
+`preparation` es la forma de preparación que sale bajo el título de **todas**
+las pantallas ("Late o Frapeado"). Déjala en `""` para quitarla de todas, o
+pon `preparation: null` en una pantalla concreta de `/data` para ocultarla
+solo ahí.
+
 ---
 
 ## Fotografías de producto

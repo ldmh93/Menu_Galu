@@ -43,7 +43,9 @@ const RITMO = {
   paddingX: 64,
   paddingBottom: 48,
   gapHeaderTitulo: 32,
-  gapTituloContenido: 36,
+  /* Se recorta de 36 a 24 para devolver parte del alto que se lleva la
+     pastilla de preparacion bajo el titulo. */
+  gapTituloContenido: 24,
   /** Franja inferior reservada para foto + pie. */
   bandaInferior: 260,
   /** Lado de la fotografia y cuanto sobresale de los bordes. */
@@ -92,6 +94,7 @@ export function MenuScreen({ menu, subtitle, playlist }: MenuScreenProps) {
             title={menu.title}
             section={menu.section}
             tagline={menu.tagline}
+            preparation={menu.preparation}
           />
         </div>
 

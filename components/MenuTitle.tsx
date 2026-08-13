@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 
+import { site } from "@/config/site";
 import { aparecer, contenedor, subirYAparecer } from "@/lib/motion";
 
 interface MenuTitleProps {
@@ -9,22 +10,33 @@ interface MenuTitleProps {
   /** Que son: la seccion dentro del menu. Va bajo el titulo, algo mas pequena. */
   section?: string;
   tagline?: string;
+  /**
+   * Forma de preparacion. Sin indicar usa la de config/site.ts;
+   * `null` la oculta en esta pantalla.
+   */
+  preparation?: string | null;
 }
 
 /**
  * Titulo de la pantalla. Es el ancla visual: tipografia display muy grande,
  * ornamento minimo y mucho aire alrededor.
  *
- * Jerarquia de tres niveles:
- *   1. Producto  — "Bobas"                 98 px, Fredoka SemiBold, ciruela
- *   2. Que son   — "Combinaciones · Agua"  52 px, Fredoka Medium, morado
- *   3. Detalle   — frase corta             28 px, Poppins Light
+ * Jerarquia de cuatro niveles:
+ *   1. Producto     — "Bobas"                 98 px, Fredoka SemiBold, ciruela
+ *   2. Que son      — "Combinaciones · Agua"  52 px, Fredoka Medium, morado
+ *   3. Preparacion  — "Late o Frapeado"       26 px, en pastilla
+ *   4. Detalle      — frase corta             28 px, Poppins Light
  *
  * Cuando un menu ocupa varias pantallas (Bobas son cinco), el nivel 1 no cambia
  * nunca y lo que cambia es el nivel 2: asi el cliente siempre sabe que sigue
  * viendo la misma carta.
  */
-export function MenuTitle({ title, section, tagline }: MenuTitleProps) {
+export function MenuTitle({
+  title,
+  section,
+  tagline,
+  preparation = site.preparation,
+}: MenuTitleProps) {
   return (
     <motion.div
       variants={contenedor(0.18, 0.25)}
@@ -57,6 +69,25 @@ export function MenuTitle({ title, section, tagline }: MenuTitleProps) {
           style={{ letterSpacing: "-0.005em" }}
         >
           {section}
+        </motion.p>
+      ) : null}
+
+      {/*
+        Preparacion: es una opcion de servicio, no un nombre de producto, asi
+        que va en pastilla y no como texto suelto. La pastilla la separa de la
+        jerarquia de titulos de un vistazo y ocupa una sola linea corta (~49 px
+        de alto), que es lo que se le puede robar al bloque de tarjetas.
+      */}
+      {preparation ? (
+        <motion.p
+          variants={subirYAparecer}
+          className="mt-2.5 rounded-full px-6 py-1 text-[26px] font-medium whitespace-nowrap text-[#6b4b8a]"
+          style={{
+            background: "rgb(255 255 255 / 0.7)",
+            border: "1px solid rgb(147 113 176 / 0.22)",
+          }}
+        >
+          {preparation}
         </motion.p>
       ) : null}
 

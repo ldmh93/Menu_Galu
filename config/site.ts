@@ -15,6 +15,12 @@ export interface SiteConfig {
   logo: string;
   /** Ruta del fondo oficial dentro de /public. NO modificar el arte. */
   background: string;
+  /**
+   * Forma de preparacion, bajo el titulo de TODAS las pantallas.
+   * Cadena vacia para ocultarla en todas; una pantalla suelta puede anularla
+   * con `preparation: null` en su archivo de datos.
+   */
+  preparation: string;
   /** Segundos que permanece visible cada PANTALLA en modo autoplay. */
   autoplaySeconds: number;
   /**
@@ -40,6 +46,7 @@ export const site: SiteConfig = {
   subtitle: "Frozen Yogurt & Bobas",
   logo: "/logo.png",
   background: "/background.svg",
+  preparation: "Late o Frapeado",
   autoplaySeconds: 12,
   // Bobas aporta 5 pantallas y el resto 1 cada uno: el ciclo dura ~108 s.
   // Malteadas y Especialidades estan pendientes de datos y se omiten solos.
