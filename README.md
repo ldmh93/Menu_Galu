@@ -23,6 +23,29 @@ npm run build
 npm start
 ```
 
+### Si el proyecto está en un disco externo (exFAT)
+
+Hay una copia de respaldo en `E:\Proyectos web\menu digital galu`. Ese disco
+está formateado en **exFAT**, y su controlador de Windows responde `EISDIR` a
+`readlink` sobre archivos normales, cuando lo correcto —y lo que hace NTFS— es
+`EINVAL` ("no es un enlace simbólico"). Webpack no sabe interpretar ese código
+y aborta:
+
+```
+EISDIR: illegal operation on a directory, readlink 'app/page.tsx'
+```
+
+Para trabajar desde ahí hay dos scripts que precargan
+`exfat-readlink-fix.cjs`, un parche que traduce ese único caso:
+
+```bash
+npm run dev:exfat
+npm run build:exfat
+```
+
+En NTFS y en Vercel se usan los scripts normales: el parche no interviene y no
+cambia nada. Estos dos son solo para Windows.
+
 ## URLs
 
 | URL | Qué muestra |

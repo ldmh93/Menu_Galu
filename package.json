@@ -7,6 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "dev:exfat": "set NODE_OPTIONS=--require ./exfat-readlink-fix.cjs&& next dev",
+    "build:exfat": "set NODE_OPTIONS=--require ./exfat-readlink-fix.cjs&& next build",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
