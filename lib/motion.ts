@@ -54,12 +54,27 @@ export const entradaTarjeta: Variants = {
   },
 };
 
-/** Transicion entre pantallas del autoplay. */
+/**
+ * Transicion entre pantallas del autoplay.
+ *
+ * La entrada espera a que la salida termine. Antes las dos corrian a la vez y
+ * durante ~300 ms se veia el texto fantasma de la pantalla saliente encima del
+ * contenido nitido de la entrante: la lista de productos de un menu caia justo
+ * sobre las pastillas de extras del siguiente y parecia un fallo de dibujado.
+ *
+ * La salida es corta y con curva de desaceleracion, asi que la pantalla vieja
+ * se desvanece rapido; la entrada arranca despues, ya sobre el fondo limpio.
+ * El fondo lo pinta ScreenFrame y nunca se va, asi que no hay parpadeo negro:
+ * en el hueco se ve el arte pastel, no un vacio.
+ */
 export const cambioDePantalla: Variants = {
   oculto: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.9, ease: EASE_SUAVE } },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.8, ease: EASE_SUAVE, delay: 0.35 },
+  },
   salida: {
     opacity: 0,
-    transition: { duration: 0.7, ease: EASE_SUAVE },
+    transition: { duration: 0.4, ease: EASE_SUAVE },
   },
 };
