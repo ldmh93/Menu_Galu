@@ -145,7 +145,7 @@ Los acentos disponibles (`accent`) son los colores del fondo oficial:
 reproducción, redes sociales. No hay que tocar código para cambiarlos.
 
 `preparation` es la forma de preparación que sale bajo el título de **todas**
-las pantallas ("Late o Frapeado"). Déjala en `""` para quitarla de todas, o
+las pantallas ("Latte o Frapeado"). Déjala en `""` para quitarla de todas, o
 pon `preparation: null` en una pantalla concreta de `/data` para ocultarla
 solo ahí.
 

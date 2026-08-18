@@ -46,7 +46,7 @@ export const site: SiteConfig = {
   subtitle: "Frozen Yogurt & Bobas",
   logo: "/logo.png",
   background: "/background.svg",
-  preparation: "Late o Frapeado",
+  preparation: "Latte o Frapeado",
   autoplaySeconds: 12,
   // Bobas aporta 5 pantallas y el resto 1 cada uno: el ciclo dura ~108 s.
   // Malteadas y Especialidades estan pendientes de datos y se omiten solos.

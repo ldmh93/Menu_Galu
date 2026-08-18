@@ -24,7 +24,7 @@ interface MenuTitleProps {
  * Jerarquia de cuatro niveles:
  *   1. Producto     — "Bobas"                 98 px, Fredoka SemiBold, ciruela
  *   2. Que son      — "Combinaciones · Agua"  52 px, Fredoka Medium, morado
- *   3. Preparacion  — "Late o Frapeado"       26 px, en pastilla
+ *   3. Preparacion  — "Latte o Frapeado"       26 px, en pastilla
  *   4. Detalle      — frase corta             28 px, Poppins Light
  *
  * Cuando un menu ocupa varias pantallas (Bobas son cinco), el nivel 1 no cambia
